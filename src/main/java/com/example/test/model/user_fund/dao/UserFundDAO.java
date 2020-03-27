@@ -1,0 +1,9 @@
+package com.example.test.model.user_fund.dao;
+
+import com.example.test.model.user_fund.dto.UserFundDTO;
+
+public interface UserFundDAO {
+
+	public void fund_buy(UserFundDTO dto);
+	public UserFundDTO fund_view(String userid);
+}

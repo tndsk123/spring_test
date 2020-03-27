@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user">
+	<select id="login" resultType="String">
+		select passwd from user1 where userid=#{userid}
+	</select>
+	
+	<select id="view" resultType="com.example.test.model.user.dto.UserDTO">
+		select * from user1 where userid=#{userid}
+	</select>
+	
+	<update id="update">
+		update user1 set account=account-#{account} where userid=#{userid}
+	</update>
+	
+	<select id="id_chk" resultType="int">
+		select count(*) from user1 where userid=#{userid}
+	</select>
+	
+	<insert id="insert">
+		insert into user1(userid, passwd) values(#{userid}, #{passwd})
+	</insert>
+</mapper>
