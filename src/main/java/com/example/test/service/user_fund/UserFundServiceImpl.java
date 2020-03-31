@@ -1,5 +1,7 @@
 package com.example.test.service.user_fund;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
@@ -19,9 +21,8 @@ public class UserFundServiceImpl implements UserFundService {
 	}
 
 	@Override
-	public UserFundDTO fund_view(String userid) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<UserFundDTO> fund_view(String userid) {
+		return dao.fund_view(userid);
 	}
 
 }

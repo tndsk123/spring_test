@@ -42,5 +42,14 @@ public class UserServiceImpl implements UserService {
 	public void insert(UserDTO dto) {
 		dao.insert(dto);
 	}
+	
+	@Override
+	public void account_up(String userid, int charge) {
+		dao.account_up(userid, charge);
+	}
+	@Override
+	public void grade_up(int gno) {
+		dao.grade_up(gno);
+	}
 
 }

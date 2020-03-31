@@ -7,6 +7,22 @@ public class UserDTO {
 	private int account;
 	private int fund;
 	private int grade;
+	private String interest;
+	private String company_name;
+	
+	
+	public String getCompany_name() {
+		return company_name;
+	}
+	public void setCompany_name(String company_name) {
+		this.company_name = company_name;
+	}
+	public String getInterest() {
+		return interest;
+	}
+	public void setInterest(String interest) {
+		this.interest = interest;
+	}
 	public String getUserid() {
 		return userid;
 	}
@@ -40,7 +56,7 @@ public class UserDTO {
 	@Override
 	public String toString() {
 		return "UserDTO [userid=" + userid + ", passwd=" + passwd + ", account=" + account + ", fund=" + fund
-				+ ", grade=" + grade + "]";
+				+ ", grade=" + grade + ", interest=" + interest + ", company_name=" + company_name + "]";
 	}
 	
 	

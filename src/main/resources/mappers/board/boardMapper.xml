@@ -56,7 +56,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	<insert id="insert">
 		insert into board (bno,p_division,s_division,title,max_fund,end_date,company_name,unit,min_fund) values
-		(seq_bno.nextval,#{p_division},#{s_division},#{title},#{max_fund},#{end_date},#{company_name},#{unit},#{min_fund});		
+		(seq_bno.nextval,#{p_division},#{s_division},#{title},#{max_fund},#{end_date},#{company_name},#{unit},#{min_fund})		
 	</insert>
 	
 </mapper>

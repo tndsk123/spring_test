@@ -10,7 +10,7 @@ public class BoardDTO {
 	private String s_division;//주식구분
 	private String project_name;
 	private Date start_date;//게시일자
-	private Date end_date;//종료 일자
+	private String end_date;//종료 일자
 	private int now_date;
 	private Date rest_date;//남은일자
 	private int progress;//--진행률
@@ -83,10 +83,10 @@ public class BoardDTO {
 	public void setStart_date(Date start_date) {
 		this.start_date = start_date;
 	}
-	public Date getEnd_date() {
+	public String getEnd_date() {
 		return end_date;
 	}
-	public void setEnd_date(Date end_date) {
+	public void setEnd_date(String end_date) {
 		this.end_date = end_date;
 	}
 	public Date getRest_date() {
@@ -183,4 +183,5 @@ public class BoardDTO {
 				+ ", content_title=" + content_title + ", content=" + content + ", writer=" + writer + ", viewcnt="
 				+ viewcnt + ", approve=" + approve + ", good=" + good + "]";
 	}
+	
 }

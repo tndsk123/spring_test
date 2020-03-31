@@ -7,4 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="fund_buy">
 		insert into user_fund values(#{userid}, #{title}, #{company_name}, #{unit}, #{count}, #{now_fund})
 	</insert>
+	<select id="fund_view" resultType="com.example.test.model.user_fund.dto.UserFundDTO">
+		select * from user_fund where userid=#{userid}
+	</select>
 </mapper>

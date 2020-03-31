@@ -13,6 +13,11 @@ $(function(){
 	});
 });
 </script>
+<c:if test="${message != '' }">
+				<script type="text/javascript">
+					alert(message);
+				</script>
+</c:if>
 </head>
 <body>
 <c:choose>

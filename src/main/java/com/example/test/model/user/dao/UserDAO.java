@@ -9,4 +9,6 @@ public interface UserDAO {
 	public void update(String userid, int account);
 	public void insert(UserDTO dto);
 	public int id_chk(String userid);
+	public void account_up(String userid, int charge);
+	public void grade_up(int gno);
 }

@@ -132,14 +132,11 @@ public class BoardController {
 	
 	@RequestMapping("insert.do")
 	public ModelAndView insert(@ModelAttribute BoardDTO dto){
-		System.out.println(dto.getTitle());
-		System.out.println(dto.getCompany_name());
-		System.out.println(dto.getMax_fund());
-		System.out.println(dto.getMin_fund());
+		System.out.println(dto);
 		boardService.create(dto);
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("message", "글 작성이 완료되었습니다. 승인 후 게시될 예정입니다.");
-		mav.setViewName("redirect:/board/fund_approve.do");
+		mav.setViewName("redirect:/board/list.do");
 		return mav;
 	}
 }

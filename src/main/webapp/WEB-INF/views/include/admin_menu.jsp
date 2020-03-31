@@ -5,7 +5,8 @@
 uri="http://java.sun.com/jsp/jstl/core" %>
 
 <a href="${path}">Home</a> |
-<a href="${path}/board/fund_approve.do">fund 대기중</a> | 
+<a href="${path}/board/fund_approve.do">fund 승인심사</a> | 
+<a href="${path}/user/grade_list.do">회원 등급심사</a> | 
 <div style="text-align:right;">
 	<c:choose>
 		<c:when test="${sessionScope.userid == null }">

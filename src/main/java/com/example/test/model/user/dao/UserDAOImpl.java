@@ -43,4 +43,16 @@ public class UserDAOImpl implements UserDAO {
 	public void insert(UserDTO dto) {
 		session.insert("user.insert", dto);		
 	}
+	
+	@Override
+	public void account_up(String userid, int charge) {
+		Map<String, Object> map=new HashMap<>();
+		map.put("userid", userid);
+		map.put("charge",charge);
+		session.update("user.account_up", map);
+	}
+	@Override
+	public void grade_up(int gno) {
+		session.update("user.grade_up", gno);
+	}
 }

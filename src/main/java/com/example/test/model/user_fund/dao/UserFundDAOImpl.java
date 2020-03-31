@@ -1,5 +1,7 @@
 package com.example.test.model.user_fund.dao;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -19,9 +21,8 @@ public class UserFundDAOImpl implements UserFundDAO {
 	}
 
 	@Override
-	public UserFundDTO fund_view(String userid) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<UserFundDTO> fund_view(String userid) {
+		return session.selectList("user_fund.fund_view", userid);
 	}
 
 }

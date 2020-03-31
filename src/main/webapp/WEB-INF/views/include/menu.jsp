@@ -18,6 +18,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
 			<!-- 로그인한 상태 -->
 			${sessionScope.userid}님이 로그인중입니다.
 			<a href="${path}/user/logout.do">로그아웃</a>
+			<a href="${path}/user/mypage.do">마이페이지</a>
 		</c:otherwise>
 	</c:choose>
 </div>

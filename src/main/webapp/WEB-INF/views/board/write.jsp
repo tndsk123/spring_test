@@ -15,8 +15,7 @@ function check() {
 <body>
 <%@ include file="../include/menu.jsp" %>
 <h2>회원등록</h2>
-<form name="form1" method="post"
-	action="${path}/board/insert.do">
+<form name="form1" method="post" action="${path}/board/insert.do">
 <div class="form-group">
 아이디
     <input class="form-control" placeholder="타이틀" 

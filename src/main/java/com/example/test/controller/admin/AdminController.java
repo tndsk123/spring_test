@@ -21,7 +21,7 @@ public class AdminController {
 	public ModelAndView login(AdminDTO dto, HttpSession session) {
 		String result=service.login(dto);		
 		ModelAndView mav=new ModelAndView();
-		if(result=="") {
+		if(result=="" || result == null) {
 			mav.setViewName("board/login");
 			mav.addObject("message", "error");
 		}else {
