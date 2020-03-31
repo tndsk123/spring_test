@@ -5,14 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<%@ include file="../include/header.jsp"%>
-<script>
-$(function(){
-	$("#btnWrite").click(function(){
-		location.href="${path}/board/write.do";
-	});
-});
-</script>
+<%@ include file="../include/header.jsp" %>
 </head>
 <body>
 <c:choose>
@@ -23,8 +16,7 @@ $(function(){
 			<%@ include file="../include/menu.jsp"%>
 		</c:otherwise>
 </c:choose>
-<h2>fund</h2>
-<button type="button" id="btnWrite">글쓰기</button>
+<h1>대기중인 프로젝트</h1>
 <table border="1">
 	<tr>
 		<th>구분</th>
@@ -39,14 +31,12 @@ $(function(){
 		<th>회사명</th>
 		<th>주당가격</th>
 		<th>최소투자액</th>
-		<th>서폿터수</th>
-		<th>조회수</th>
 	</tr>
 <c:forEach var="row" items="${list}">
 	<tr>
 		<td>${row.p_division}</td>
 		<td>${row.s_division}</td>
-		<td><a href="${path}/board/view/${row.bno}">${row.title}</a></td>
+		<td><a href="${path}/board/view_approve/${row.bno}">${row.title}</a></td>
 		<td>${row.now_fund}</td>
 		<td>${row.max_fund}</td>
 		<td>${row.progress}%</td>
@@ -56,8 +46,6 @@ $(function(){
 		<td>${row.company_name}</td>
 		<td>${row.unit}</td>
 		<td>${row.min_fund}</td>
-		<td>${row.support}</td>
-		<td>${row.viewcnt}</td>
 	</tr>
 </c:forEach>
 </table>

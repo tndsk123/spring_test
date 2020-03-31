@@ -13,7 +13,14 @@ function buy(){
 </script>
 </head>
 <body>
-<%@ include file="../include/menu.jsp"%>
+<c:choose>
+		<c:when test="${sessionScope.userid == 'tndsk123' }">
+			<%@ include file="../include/admin_menu.jsp"%>
+		</c:when>
+		<c:otherwise>
+			<%@ include file="../include/menu.jsp"%>
+		</c:otherwise>
+</c:choose>
 <button type="button" onclick="buy()">구매하기</button>
 <h2>${list.title}</h2>
 <table border="1">
@@ -50,6 +57,6 @@ function buy(){
 		<td>${list.viewcnt}</td>
 	</tr>
 </table>
-
+<a href="${path}/board/good.do?bno=${list.bno}"><img src="${path}/images/good.jpg"></a>${list.good}
 </body>
 </html>

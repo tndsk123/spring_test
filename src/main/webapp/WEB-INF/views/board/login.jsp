@@ -21,9 +21,13 @@ $(function(){
 			$("#passwd").focus();
 			return;
 		}
-		//폼 데이터를 서버로 제출
-		document.form1.action="${path}/user/login_check.do";
-		document.form1.submit();
+		if($("#admin").prop("checked")){
+			document.form1.action="${path}/admin/login_check.do";
+			document.form1.submit();
+		}else{
+			document.form1.action="${path}/user/login_check.do";
+			document.form1.submit();
+		}
 	});
 
 
@@ -34,9 +38,21 @@ $(function(){
 					alert("회원가입이 완료되었습니다.\n 로그인해주세요");
 				</script>
 </c:if>
+<c:if test="${message == 'error' }">
+				<script type="text/javascript">
+					alert("로그인이 실패했습니다.\n 아이디나 비밀번호를 확인하세요");
+				</script>
+</c:if>
 </head>
 <body>
-<%@ include file="../include/menu.jsp"%>
+<c:choose>
+		<c:when test="${sessionScope.userid == 'tndsk123' }">
+			<%@ include file="../include/admin_menu.jsp"%>
+		</c:when>
+		<c:otherwise>
+			<%@ include file="../include/menu.jsp"%>
+		</c:otherwise>
+</c:choose>
 <h2>로그인</h2>
 <form name="form1" method="post">
 <table border="1" width="400px">
@@ -47,6 +63,9 @@ $(function(){
 	<tr>
 		<td>비밀번호</td>
 		<td><input type="password" name="passwd" id="passwd"></td>
+	</tr>
+	<tr>
+		<td colspan="2" align="center">관리자로그인<input type="radio" name="admin" id="admin"></td>
 	</tr>
 	<tr>
 		<td colspan="2" align="center">

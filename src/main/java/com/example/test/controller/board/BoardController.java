@@ -46,9 +46,15 @@ public class BoardController {
 		mav.addObject("list", list);
 		return mav;
 	}
+	@RequestMapping("write.do")
+	public String write() {
+		return "board/write";
+	}
 	
 	@RequestMapping("view/{bno}")
-	public ModelAndView view(@PathVariable("bno") int bno, ModelAndView mav) throws Exception {
+	public ModelAndView view(@PathVariable("bno") int bno, HttpSession session) throws Exception {
+		boardService.increateViewcnt(bno, session);
+		ModelAndView mav=new ModelAndView();
 		mav.setViewName("board/view");
 		mav.addObject("list", boardService.view(bno));
 		mav.addObject("grade", boardgradeService.list(bno));
@@ -92,5 +98,48 @@ public class BoardController {
 	@RequestMapping("address.do")
 	public String address() {
 		return "include/address"; 
+	}
+	
+	@RequestMapping("good.do")
+	public String good(int bno, HttpSession session) {
+		boardService.good(bno, session);
+		return "redirect:/board/view/"+bno;
+	}
+	
+	@RequestMapping("fund_approve.do")
+	public ModelAndView fund_approve() {
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("admin/fund_approve");
+		mav.addObject("list", boardService.fund_approve());
+		return mav;
+	}
+	
+	@RequestMapping("view_approve/{bno}")
+	public ModelAndView view_approve(@PathVariable("bno") int bno, HttpSession session) throws Exception {
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("admin/view");
+		mav.addObject("list", boardService.view(bno));
+		return mav;
+	}
+	
+	@RequestMapping("approve/{bno}")
+	public ModelAndView approve(@PathVariable("bno") int bno) {
+		boardService.approve(bno);
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("redirect:/board/fund_approve.do");
+		return mav;
+	}
+	
+	@RequestMapping("insert.do")
+	public ModelAndView insert(@ModelAttribute BoardDTO dto){
+		System.out.println(dto.getTitle());
+		System.out.println(dto.getCompany_name());
+		System.out.println(dto.getMax_fund());
+		System.out.println(dto.getMin_fund());
+		boardService.create(dto);
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("message", "글 작성이 완료되었습니다. 승인 후 게시될 예정입니다.");
+		mav.setViewName("redirect:/board/fund_approve.do");
+		return mav;
 	}
 }

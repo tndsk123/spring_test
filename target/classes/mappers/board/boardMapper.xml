@@ -5,14 +5,58 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="board">
 	<select id="list" resultType="com.example.test.model.board.dto.BoardDTO">
-		select * from board
+		select * from board where approve=1
 	</select>
 	<select id="view" resultType="com.example.test.model.board.dto.BoardDTO">
-		select bno,p_division,s_division,title,max_fund,end_date,company_name,unit,min_fund,
-		(end_date-start_date) now_date, start_date from board where bno=#{bno}
+		select bno,p_division,s_division,title,max_fund,end_date,company_name,unit,min_fund,now_fund, support,
+		(end_date-start_date) now_date, start_date,progress,viewcnt,good from board where bno=#{bno} 
 	</select>
 	<update id="buy">
-		update board set now_fund=now_fund+#{now_fund}, support=support+1, progress=(#{now_fund}/max_fund*100)
+		update board set now_fund=now_fund+#{now_fund}, support=support+1, progress=((now_fund+#{now_fund})/max_fund*100)
 		where bno=#{bno}
 	</update>
+	<select id="best" resultType="com.example.test.model.board.dto.BoardDTO">
+		select bno,p_division,s_division,title,max_fund,end_date,company_name,unit,min_fund,now_fund, support,
+		(end_date-start_date) now_date, start_date,progress,viewcnt,good from board where approve=1 and rownum &lt; 5
+		order by viewcnt desc
+	</select>
+	<update id="increatViewcnt">
+		update board set viewcnt=viewcnt+1 where bno=#{bno}
+	</update>
+	<update id="good">
+		update board set good=good+1 where bno=#{bno}
+	</update>
+	<select id="goodList" resultType="com.example.test.model.board.dto.BoardDTO">
+		select bno,p_division,s_division,title,max_fund,end_date,company_name,unit,min_fund,now_fund, support,
+		(end_date-start_date) now_date, start_date,progress,viewcnt,good from board where approve=1 and rownum &lt; 5
+		order by good desc
+	</select>
+	<select id="supportList" resultType="com.example.test.model.board.dto.BoardDTO">
+		select bno,p_division,s_division,title,max_fund,end_date,company_name,unit,min_fund,now_fund, support,
+		(end_date-start_date) now_date, start_date,progress,viewcnt,good from board where approve=1 and  rownum &lt; 5
+		order by support desc
+	</select>
+		<select id="progressList" resultType="com.example.test.model.board.dto.BoardDTO">
+		select bno,p_division,s_division,title,max_fund,end_date,company_name,unit,min_fund,now_fund, support,
+		(end_date-start_date) now_date, start_date,progress,viewcnt,good from board where approve=1 and  rownum &lt; 5
+		order by progress desc
+	</select>
+	
+	<select id="todayList" resultType="com.example.test.model.board.dto.BoardDTO">
+		select bno,p_division,s_division,title,max_fund,end_date,company_name,unit,min_fund,now_fund, support,
+		(end_date-start_date) now_date, start_date,progress,viewcnt,good from board where approve=1 and  rownum &lt; 5
+		and TO_CHAR(start_date,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD')
+		order by progress desc
+	</select>
+	<select id="fund_approve" resultType="com.example.test.model.board.dto.BoardDTO">
+		select * from board where approve=0
+	</select>
+	<update id="approve">
+		update board set approve=1 where bno=#{bno}
+	</update>
+	<insert id="insert">
+		insert into board (bno,p_division,s_division,title,max_fund,end_date,company_name,unit,min_fund) values
+		(seq_bno.nextval,#{p_division},#{s_division},#{title},#{max_fund},#{end_date},#{company_name},#{unit},#{min_fund});		
+	</insert>
+	
 </mapper>

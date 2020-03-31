@@ -37,7 +37,7 @@ public class UserController {
 		if(pwEncoder.matches(dto.getPasswd(), result)) {
 			mav.setViewName("home");
 		}else {
-			mav.setViewName("member/login");
+			mav.setViewName("board/login");
 			mav.addObject("message", "error");   
 		}  
 		return mav;

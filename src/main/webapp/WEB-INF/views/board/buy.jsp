@@ -51,7 +51,14 @@ $(function() {
 </script>
 </head>
 <body>
-<%@ include file="../include/menu.jsp"%>
+<c:choose>
+		<c:when test="${sessionScope.userid == 'tndsk123' }">
+			<%@ include file="../include/admin_menu.jsp"%>
+		</c:when>
+		<c:otherwise>
+			<%@ include file="../include/menu.jsp"%>
+		</c:otherwise>
+</c:choose>
 <form name="form1" method="post" action="">
 <table border="1">
 	<tr>

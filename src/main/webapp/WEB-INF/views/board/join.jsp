@@ -117,7 +117,14 @@ function check() {
 </script>
 </head>
 <body>
-<%@ include file="../include/menu.jsp" %>
+<c:choose>
+		<c:when test="${sessionScope.userid == 'tndsk123' }">
+			<%@ include file="../include/admin_menu.jsp"%>
+		</c:when>
+		<c:otherwise>
+			<%@ include file="../include/menu.jsp"%>
+		</c:otherwise>
+</c:choose>
 <h2>회원등록</h2>
 <form name="form1" method="post"
 	action="${path}/user/insert.do">

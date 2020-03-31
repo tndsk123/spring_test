@@ -5,13 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<%@ include file="../include/header.jsp"%>
-<script>
-$(function(){
-	$("#btnWrite").click(function(){
-		location.href="${path}/board/write.do";
-	});
-});
+<%@ include file="../include/header.jsp" %>
+<script type="text/javascript">
+function approve(){
+	location.href="${path}/board/approve/${list.bno}"
+}
 </script>
 </head>
 <body>
@@ -23,8 +21,8 @@ $(function(){
 			<%@ include file="../include/menu.jsp"%>
 		</c:otherwise>
 </c:choose>
-<h2>fund</h2>
-<button type="button" id="btnWrite">글쓰기</button>
+<button type="button" onclick="approve()">프로젝트 승인</button>
+<h2>${list.title}</h2>
 <table border="1">
 	<tr>
 		<th>구분</th>
@@ -39,27 +37,22 @@ $(function(){
 		<th>회사명</th>
 		<th>주당가격</th>
 		<th>최소투자액</th>
-		<th>서폿터수</th>
-		<th>조회수</th>
+
 	</tr>
-<c:forEach var="row" items="${list}">
 	<tr>
-		<td>${row.p_division}</td>
-		<td>${row.s_division}</td>
-		<td><a href="${path}/board/view/${row.bno}">${row.title}</a></td>
-		<td>${row.now_fund}</td>
-		<td>${row.max_fund}</td>
-		<td>${row.progress}%</td>
-		<td>${row.start_date}</td>
-		<td>${row.end_date}</td>
-		<td>${row.now_date}일</td>
-		<td>${row.company_name}</td>
-		<td>${row.unit}</td>
-		<td>${row.min_fund}</td>
-		<td>${row.support}</td>
-		<td>${row.viewcnt}</td>
+		<td>${list.p_division}</td>
+		<td>${list.s_division}</td>
+		<td>${list.title}</td>
+		<td>${list.now_fund}</td>
+		<td>${list.max_fund}</td>
+		<td>${list.progress}%</td>
+		<td>${list.start_date}</td>
+		<td>${list.end_date}</td>
+		<td>${list.now_date}일</td>
+		<td>${list.company_name}</td>
+		<td>${list.unit}</td>
+		<td>${list.min_fund}</td>
 	</tr>
-</c:forEach>
 </table>
 </body>
 </html>

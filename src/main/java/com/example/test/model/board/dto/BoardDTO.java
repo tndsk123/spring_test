@@ -27,7 +27,14 @@ public class BoardDTO {
 	private String writer;//작성자
 	private int viewcnt;//조회 수
 	private int approve;//승인 여부
+	private int good;
 	
+	public int getgood() {
+		return good;
+	}
+	public void setgood(int good) {
+		this.good = good;
+	}
 	public int getNow_date() {
 		return now_date;
 	}
@@ -170,9 +177,10 @@ public class BoardDTO {
 	public String toString() {
 		return "BoardDTO [bno=" + bno + ", title=" + title + ", subtitle=" + subtitle + ", s_division=" + s_division
 				+ ", project_name=" + project_name + ", start_date=" + start_date + ", end_date=" + end_date
-				+ ", rest_date=" + rest_date + ", progress=" + progress + ", benefit=" + benefit + ", min_fund="
-				+ min_fund + ", max_fund=" + max_fund + ", now_fund=" + now_fund + ", unit=" + unit + ", support="
-				+ support + ", p_division=" + p_division + ", company_name=" + company_name + ", content_title="
-				+ content_title + ", content=" + content + ", writer=" + writer + ", viewcnt=" + viewcnt + "]";
+				+ ", now_date=" + now_date + ", rest_date=" + rest_date + ", progress=" + progress + ", benefit="
+				+ benefit + ", min_fund=" + min_fund + ", max_fund=" + max_fund + ", now_fund=" + now_fund + ", unit="
+				+ unit + ", support=" + support + ", p_division=" + p_division + ", company_name=" + company_name
+				+ ", content_title=" + content_title + ", content=" + content + ", writer=" + writer + ", viewcnt="
+				+ viewcnt + ", approve=" + approve + ", good=" + good + "]";
 	}
 }

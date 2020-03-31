@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -23,9 +24,9 @@ public class BoardDAOImpl implements BoardDAO {
 	}
 
 	@Override
-	public void create(BoardDTO dto) throws Exception {
-		// TODO Auto-generated method stub
-
+	public void create(BoardDTO dto){
+		System.out.println(dto);
+		session.insert("board.insert", dto);
 	}
 
 	@Override
@@ -35,8 +36,7 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public void increateViewcnt(int bno) throws Exception {
-		// TODO Auto-generated method stub
-
+		session.update("board.increatViewcnt", bno);
 	}
 	@Override
 	public void update(int bno, String title, int now_fund) {
@@ -45,6 +45,44 @@ public class BoardDAOImpl implements BoardDAO {
 		map.put("bno", bno);
 		map.put("now_fund", now_fund);
 		session.update("board.buy", map);
+	}
+	
+	@Override
+	public List<BoardDTO> bestList() {
+		return session.selectList("board.best");
+	}
+	
+	@Override
+	public List<BoardDTO> goodList() {
+		return session.selectList("board.goodList");
+	}
+	
+	@Override
+	public void good(int bno) {
+		session.update("board.good", bno);
+	}
+	
+	@Override
+	public List<BoardDTO> supportList() {
+		return session.selectList("board.supportList");
+	}
+	@Override
+	public List<BoardDTO> todayList() {
+		return session.selectList("board.todayList");
+	}
+	@Override
+	public List<BoardDTO> progressList() {
+		return session.selectList("board.progressList");
+	}
+	
+	@Override
+	public List<BoardDTO> fund_approve() {
+		return session.selectList("board.fund_approve");
+	}
+	
+	@Override
+	public void approve(int bno) {
+		session.update("board.approve", bno);
 	}
 
 }
