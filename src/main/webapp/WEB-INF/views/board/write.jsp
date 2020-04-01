@@ -14,10 +14,10 @@ function check() {
 </head>
 <body>
 <%@ include file="../include/menu.jsp" %>
-<h2>회원등록</h2>
+<h2>프로젝트 등록</h2>
 <form name="form1" method="post" action="${path}/board/insert.do">
 <div class="form-group">
-아이디
+프로젝트 타이틀
     <input class="form-control" placeholder="타이틀" 
     name="title" id="title" type="text" />
 </div>

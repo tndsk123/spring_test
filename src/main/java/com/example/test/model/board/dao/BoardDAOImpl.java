@@ -84,5 +84,10 @@ public class BoardDAOImpl implements BoardDAO {
 	public void approve(int bno) {
 		session.update("board.approve", bno);
 	}
+	
+	@Override
+	public List<BoardDTO> searchList(String keyword) {
+		return session.selectList("board.search", keyword);
+	}
 
 }

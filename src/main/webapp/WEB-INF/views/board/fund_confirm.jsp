@@ -30,7 +30,7 @@
 <c:forEach var="row" items="${list}">
 	<tr>
 		<td>${row.userid}</td>
-		<td>${row.title}</td>
+		<td><a href="${path}/board/view">${row.title}</a></td>
 		<td>${row.company_name}</td>
 		<td>${row.unit}</td>
 		<td>${row.count}</td>

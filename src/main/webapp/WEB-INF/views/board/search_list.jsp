@@ -5,19 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<%@ include file="../include/header.jsp"%>
-<script>
-$(function(){
-	$("#btnWrite").click(function(){
-		location.href="${path}/board/write.do";
-	});
-});
-</script>
-<c:if test="${message != '' || message != null }">
-				<script type="text/javascript">
-					alert("글 작성이 완료되었습니다. 승인 후 게시될 예정입니다.");
-				</script>
-</c:if>
+<%@ include file="../include/header.jsp" %>
 </head>
 <body>
 <c:choose>
@@ -28,8 +16,7 @@ $(function(){
 			<%@ include file="../include/menu.jsp"%>
 		</c:otherwise>
 </c:choose>
-<h2>fund</h2>
-<button type="button" id="btnWrite">글쓰기</button>
+<h1>${keyword} 검색결과</h1>
 <table border="1">
 	<tr>
 		<th>구분</th>
@@ -46,6 +33,7 @@ $(function(){
 		<th>최소투자액</th>
 		<th>서폿터수</th>
 		<th>조회수</th>
+		<th>좋아요수</th>
 	</tr>
 <c:forEach var="row" items="${list}">
 	<tr>
@@ -63,6 +51,7 @@ $(function(){
 		<td>${row.min_fund}</td>
 		<td>${row.support}</td>
 		<td>${row.viewcnt}</td>
+		<td>${row.good}</td>
 	</tr>
 </c:forEach>
 </table>

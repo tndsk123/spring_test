@@ -20,4 +20,5 @@ public interface BoardService {
 	public void good(int bno, HttpSession session);
 	public List<BoardDTO> fund_approve();
 	public void approve(int bno);
+	public List<BoardDTO> searchList(String keyword);
 }

@@ -100,5 +100,11 @@ public class BoardServiceImpl implements BoardService {
 		boardDao.approve(bno);
 	}
 	
+	@Override
+	public List<BoardDTO> searchList(String keyword) {
+		keyword="%"+keyword+"%";
+		return boardDao.searchList(keyword);
+	}
+	
 
 }

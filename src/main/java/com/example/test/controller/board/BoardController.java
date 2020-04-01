@@ -139,4 +139,14 @@ public class BoardController {
 		mav.setViewName("redirect:/board/list.do");
 		return mav;
 	}
+	
+	@RequestMapping("search.do")
+	public ModelAndView search(String keyword) {
+		System.out.println(keyword);
+		ModelAndView mav=new ModelAndView();
+		mav.addObject("keyword", keyword);
+		mav.addObject("list", boardService.searchList(keyword));
+		mav.setViewName("board/search_list");
+		return mav;
+	}
 }
