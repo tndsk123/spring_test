@@ -59,8 +59,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update board set approve=1 where bno=#{bno}
 	</update>
 	<insert id="insert">
-		insert into board (bno,p_division,s_division,title,max_fund,end_date,company_name,unit,min_fund) values
-		(seq_bno.nextval,#{p_division},#{s_division},#{title},#{max_fund},#{end_date},#{company_name},#{unit},#{min_fund})		
+		insert into board (bno,p_division,s_division,title,max_fund,start_date,end_date,now_date,company_name,unit,min_fund,title_img,sledding,limit,margin) values
+		(seq_bno.nextval,#{p_division},#{s_division},#{title},#{max_fund},#{start_date},#{end_date},#{now_date}
+		,#{company_name},#{unit},#{min_fund},#{title_img},#{sledding},#{limit},#{margin})		
 	</insert>
 	<select id="search" resultType="com.example.test.model.board.dto.BoardDTO">
 		select A.* from (select bno,p_division,s_division,title,max_fund,end_date,company_name,unit,min_fund,now_fund, support,

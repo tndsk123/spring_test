@@ -23,7 +23,6 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public void create(BoardDTO dto){
-		System.out.println(dto);
 		boardDao.create(dto);
 	}
 

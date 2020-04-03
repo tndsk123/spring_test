@@ -1,15 +1,23 @@
 package com.example.test.controller.board;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.UUID;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.test.model.board.dto.BoardDTO;
@@ -22,6 +30,7 @@ import com.example.test.service.board.BoardService;
 import com.example.test.service.grade.GradeService;
 import com.example.test.service.user.UserService;
 import com.example.test.service.user_fund.UserFundService;
+import com.example.test.util.DiffDate;
 
 @Controller
 @RequestMapping("board/*")
@@ -37,6 +46,8 @@ public class BoardController {
 	GradeService gradeService;
 	@Inject
 	BoardGradeService boardgradeService;
+	@Resource(name="uploadPath")
+	String uploadPath;
 	
 	@RequestMapping("list.do")
 	public ModelAndView list() throws Exception{
@@ -130,14 +141,30 @@ public class BoardController {
 		return mav;
 	}
 	
-	@RequestMapping("insert.do")
-	public ModelAndView insert(@ModelAttribute BoardDTO dto){
+	@RequestMapping(value="insert", method=RequestMethod.POST)
+	public ModelAndView insert(@ModelAttribute BoardDTO dto, @RequestParam("file") MultipartFile file) throws Exception{
+		String title_img=file.getOriginalFilename();
+		title_img = uploadFile(title_img, file.getBytes());
+		dto.setTitle_img(title_img);
+		DiffDate diff=new DiffDate();
+		long now_date=diff.diffOfDate(dto.getEnd_date(), dto.getStart_date());
+		String sysdate=new java.text.SimpleDateFormat("yyyyMMdd").format(new java.util.Date());
+		long sledding=diff.diffOfDate(sysdate , dto.getStart_date());
+		dto.setNow_date(now_date);
+		dto.setSledding(sledding);
 		System.out.println(dto);
-		boardService.create(dto);
 		ModelAndView mav=new ModelAndView();
-		mav.addObject("message", "글 작성이 완료되었습니다. 승인 후 게시될 예정입니다.");
-		mav.setViewName("redirect:/board/list.do");
+		boardService.create(dto);
+		mav.addObject("message","글 작성이 완료되었습니다. 승인 후 게시될 예정입니다.");
+		mav.setViewName("redirect:/board/list.do");		 
 		return mav;
+	}
+	String uploadFile(String originalName, byte[] fileData) throws Exception {
+		UUID uid=UUID.randomUUID();
+		String savedName=uid.toString()+"_"+originalName;
+		File target=new File(uploadPath, savedName);
+		FileCopyUtils.copy(fileData, target);
+		return savedName;
 	}
 	
 	@RequestMapping("search.do")

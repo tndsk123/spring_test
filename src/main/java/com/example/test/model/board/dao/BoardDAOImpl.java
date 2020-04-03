@@ -25,7 +25,6 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public void create(BoardDTO dto){
-		System.out.println(dto);
 		session.insert("board.insert", dto);
 	}
 
