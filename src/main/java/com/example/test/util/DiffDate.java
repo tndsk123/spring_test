@@ -5,12 +5,13 @@ import java.util.Date;
 
 public class DiffDate{
 
-  public static long diffOfDate(String begin, String end) throws Exception{
-    SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd");
-    Date beginDate = formatter.parse(begin);
-    Date endDate = formatter.parse(end);
-    long diff = endDate.getTime() - beginDate.getTime();
-    long diffDays = diff / (24 * 60 * 60 * 1000);
-    return diffDays;
+  public static long diffOfDate(String begin, String end) throws Exception {
+      final String DATE_PATTERN = "yyyy-MM-dd";
+      final int MILLI_SECONDS_PER_DAY = 24 * 60 * 60 * 1000;
+      SimpleDateFormat sdf = new SimpleDateFormat(DATE_PATTERN);
+      Date startDate = sdf.parse(begin);
+      Date endDate = sdf.parse(end);
+      long difference = (endDate.getTime() - startDate.getTime()) / MILLI_SECONDS_PER_DAY;
+      return difference;
   }
 }

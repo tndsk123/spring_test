@@ -26,6 +26,7 @@ function buy(){
 <table border="1">
 	<tr>
 		<th>구분</th>
+		<th>이미지</th>
 		<th>주식구분</th>
 		<th>제목</th>
 		<th>현재금액</th>
@@ -42,6 +43,7 @@ function buy(){
 	</tr>
 	<tr>
 		<td>${list.p_division}</td>
+		<td><img src="${path}/img/${list.title_img}"></td>
 		<td>${list.s_division}</td>
 		<td>${list.title}</td>
 		<td>${list.now_fund}</td>

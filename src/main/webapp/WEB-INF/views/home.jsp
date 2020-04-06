@@ -9,9 +9,6 @@
 <%@ include file="include/header.jsp" %>
 </head>
 <body>
-<div>
-	<img src="D:\test.jpg">
-</div>
 <c:choose>
 		<c:when test="${sessionScope.userid == 'tndsk123' }">
 			<%@ include file="include/admin_menu.jsp"%>

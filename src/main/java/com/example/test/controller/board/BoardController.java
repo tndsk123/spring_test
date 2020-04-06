@@ -146,10 +146,11 @@ public class BoardController {
 		String title_img=file.getOriginalFilename();
 		title_img = uploadFile(title_img, file.getBytes());
 		dto.setTitle_img(title_img);
+		System.out.println(dto);
 		DiffDate diff=new DiffDate();
 		long now_date=diff.diffOfDate(dto.getEnd_date(), dto.getStart_date());
 		String sysdate=new java.text.SimpleDateFormat("yyyyMMdd").format(new java.util.Date());
-		long sledding=diff.diffOfDate(sysdate , dto.getStart_date());
+		long sledding=diff.diffOfDate(dto.getStart_date(), sysdate);
 		dto.setNow_date(now_date);
 		dto.setSledding(sledding);
 		System.out.println(dto);

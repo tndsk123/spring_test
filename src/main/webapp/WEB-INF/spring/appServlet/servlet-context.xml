@@ -18,6 +18,7 @@
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/img/**" location="file:///C:/spring_img/" />
 	<!-- 리소스 매핑 -->
 	<resources location="/WEB-INF/views/include/" mapping="/include/**" />
 	<resources location="/WEB-INF/views/images/" mapping="/images/**"></resources>
@@ -40,7 +41,7 @@
 	<!-- 파일업로드를 위한 디렉토리 설정 -->
 	<!-- String uploadPath=new String("d:/upload"); -->
 	<beans:bean id="uploadPath" class="java.lang.String">
-		<beans:constructor-arg value="d:/spring_img" />
+		<beans:constructor-arg value="C:/spring_img" />
 	</beans:bean>
 	
 	<!-- interceptor 설정 -->

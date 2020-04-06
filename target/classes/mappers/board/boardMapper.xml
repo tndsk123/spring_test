@@ -8,7 +8,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from board where approve=1
 	</select>
 	<select id="view" resultType="com.example.test.model.board.dto.BoardDTO">
-		select bno,p_division,s_division,title,max_fund,end_date,company_name,unit,min_fund,now_fund, support,
+		select bno,p_division,s_division,title,max_fund,end_date,company_name,unit,min_fund,now_fund, support,title_img,
 		(end_date-start_date) now_date, start_date,progress,viewcnt,good from board where bno=#{bno} 
 	</select>
 	<update id="buy">
@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	<select id="best" resultType="com.example.test.model.board.dto.BoardDTO">
 		select A.* from (select bno,p_division,s_division,title,max_fund,end_date,company_name,unit,min_fund,now_fund, support,
-		(end_date-start_date) now_date, start_date,progress,viewcnt,good, approve
+		(end_date-start_date) now_date, start_date,progress,viewcnt,good, approve, title_img
 		from board order by viewcnt desc) A 
 		where approve=1 and rownum &lt; 6
 	</select>
@@ -29,26 +29,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	<select id="goodList" resultType="com.example.test.model.board.dto.BoardDTO">
 		select A.* from (select bno,p_division,s_division,title,max_fund,end_date,company_name,unit,min_fund,now_fund, support,
-		(end_date-start_date) now_date, start_date,progress,viewcnt, good, approve
+		(end_date-start_date) now_date, start_date,progress,viewcnt, good, approve, title_img
 		from board order by good desc) A 
 		where approve=1 and rownum &lt; 6
 	</select>
 	<select id="supportList" resultType="com.example.test.model.board.dto.BoardDTO">
 		select A.* from (select bno,p_division,s_division,title,max_fund,end_date,company_name,unit,min_fund,now_fund, support,
-		(end_date-start_date) now_date, start_date,progress,viewcnt,good, approve
+		(end_date-start_date) now_date, start_date,progress,viewcnt,good, approve, title_img
 		from board order by support desc) A 
 		where approve=1 and rownum &lt; 6
 	</select>
 		<select id="progressList" resultType="com.example.test.model.board.dto.BoardDTO">
 		select A.* from (select bno,p_division,s_division,title,max_fund,end_date,company_name,unit,min_fund,now_fund, support,
-		(end_date-start_date) now_date, start_date,progress,viewcnt,good, approve
+		(end_date-start_date) now_date, start_date,progress,viewcnt,good, approve, title_img
 		from board order by progress desc) A 
 		where approve=1 and rownum &lt; 6
 	</select>
 	
 	<select id="todayList" resultType="com.example.test.model.board.dto.BoardDTO">
 		select bno,p_division,s_division,title,max_fund,end_date,company_name,unit,min_fund,now_fund, support,
-		(end_date-start_date) now_date, start_date,progress,viewcnt,good from board where approve=1 and  rownum &lt; 6
+		(end_date-start_date) now_date, start_date,progress,viewcnt,good, approve, title_img
+		from board where approve=1 and  rownum &lt; 6
 		and TO_CHAR(start_date,'YYYYMMDD') = TO_CHAR(SYSDATE,'YYYYMMDD')
 		order by progress desc
 	</select>
@@ -65,7 +66,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	<select id="search" resultType="com.example.test.model.board.dto.BoardDTO">
 		select A.* from (select bno,p_division,s_division,title,max_fund,end_date,company_name,unit,min_fund,now_fund, support,
-		(end_date-start_date) now_date, start_date,progress,viewcnt,good, approve
+		(end_date-start_date) now_date, start_date,progress,viewcnt,good, approve, title_img
 		from board order by progress desc) A 
 		where approve=1 and title like #{keyword}  or p_division like #{keyword} 
 	</select>
