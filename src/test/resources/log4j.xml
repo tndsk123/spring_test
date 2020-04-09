@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.example.test">
+	<logger name="com.example.templet">
 		<level value="info" />
 	</logger>
 	

@@ -66,7 +66,7 @@ function handleImgFileSelect(e){
     <input class="form-control"   
     name="s_division" id="bond" type="radio" value="채권" /> 채권
      <input class="form-control"   
-    name="margin" id="margin" type="hidden" placeholder="이익률 입력" />
+    name="margin" id="margin" type="hidden" placeholder="이익률 입력" value="0"/>
 </div> 
 
 <div class="form-group">

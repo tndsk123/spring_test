@@ -46,12 +46,17 @@
 	
 	<!-- interceptor 설정 -->
 	<beans:bean id="loginInterceptor" class="com.example.test.interceptor.LoginInterceptor"/>
+	<beans:bean id="UploadInterceptor" class="com.example.test.interceptor.UploadInterceptor"/>
 	
 	<interceptors>
 		<interceptor>
 			<mapping path="/board/write.do"/>
 			<mapping path="/board/buy/*"/>
 			<beans:ref bean="loginInterceptor"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/board/write.do"/>
+			<beans:ref bean="UploadInterceptor"/>
 		</interceptor>
 	</interceptors>
 </beans:beans>

@@ -6,10 +6,34 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@ include file="../include/header.jsp"%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 <link rel="stylesheet" type="text/css" href="${path}/include/view_css.css">
 <script type="text/javascript">
 function buy(){
 	location.href="${path}/board/buy/${list.bno}"
+}
+function company(){
+	var company_name=$("#company_name").val();
+	$.ajax({
+		url:'${path}/company/view.do?company_name='+company_name,
+    type:'get',
+    error:function(){
+       alert('등록된 기업정보가 없습니다.');
+    },
+    success:function(data){
+         if(data != null){
+           $('#m_company_name').html(data.company_name);
+           $('#m_ceo').html(data.ceo);
+           $('#m_count_member').html(data.count_member+"명");
+           $('#m_found_date').html(data.found_date);
+           $('#m_greeting').html(data.greeting);
+           $("#company_modal").get(0).click();
+        }else{
+            alert("등록된 기업정보가 없습니다.");
+        }
+     }
+	});
 }
 </script>
 </head>
@@ -45,12 +69,13 @@ function buy(){
 			<div class="funding-company">
 				<div class="funding-company intro">
 				<p>
-				(주)마로산업테크
+				<a href="javascript:company()">${company.company_name}</a>
+				<input type="hidden" id="company_name" value="${company.company_name}">
+				<a id="company_modal" href="#company_info" rel="modal:open"></a>
 				</p>
 				<p>
-				연구개발특구진흥재단 파트너와 함께합니다.
+				${company.greeting}
 				</p>
-				#로봇 #물류로봇 #아마존
 				</div>
 			<div class="funding-company participation">
 			 <div class="funding-company participation support">
@@ -193,6 +218,23 @@ function buy(){
 	</section>
 	</div>
 	</div>
+<div class="modal" id="company_info" role="dialog">
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header">
+					<h4 class="modal-title" id="title">기업정보</h4>
+       </div>
+       <div class="modal-body">
+         <p id="m_company_name"></p>
+         <p id="m_ceo"></p>
+         <p id="m_count_member"></p>
+         <p id="m_found_date"></p>
+         <p id="m_greeting"></p>
+       </div>
+    </div>
+  </div>
+</div>  
+
 <%-- <button type="button" onclick="buy()">구매하기</button>
 <h2>${list.title}</h2>
 <table border="1">

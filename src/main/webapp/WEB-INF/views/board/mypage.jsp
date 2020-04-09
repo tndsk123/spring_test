@@ -6,10 +6,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <%@ include file="../include/header.jsp" %>
-</head>
 <c:if test="${message == 'account'}">
 				<script type="text/javascript">
 					alert("계좌 충전이 완료되었습니다.");
+				</script>
+</c:if>
+<c:if test="${message == 'noappend' }">
+				<script type="text/javascript">
+					alert("기업(회사) 등록을 한 후 가능합니다.");
 				</script>
 </c:if>
 <c:if test="${message == 'grade_up' }">
@@ -17,6 +21,7 @@
 					alert("등급 요청이 전송되었습니다.");
 				</script>
 </c:if>
+</head>
 <body>
 <c:choose>
 		<c:when test="${sessionScope.userid == 'tndsk123' }">

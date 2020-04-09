@@ -2,6 +2,7 @@ package com.example.test.controller.board;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,6 +28,7 @@ import com.example.test.model.user.dto.UserDTO;
 import com.example.test.model.user_fund.dto.UserFundDTO;
 import com.example.test.service.board.BoardGradeService;
 import com.example.test.service.board.BoardService;
+import com.example.test.service.company.CompanyService;
 import com.example.test.service.grade.GradeService;
 import com.example.test.service.user.UserService;
 import com.example.test.service.user_fund.UserFundService;
@@ -46,6 +48,8 @@ public class BoardController {
 	GradeService gradeService;
 	@Inject
 	BoardGradeService boardgradeService;
+	@Inject
+	CompanyService companyService;
 	@Resource(name="uploadPath")
 	String uploadPath;
 	
@@ -65,10 +69,12 @@ public class BoardController {
 	@RequestMapping("view/{bno}")
 	public ModelAndView view(@PathVariable("bno") int bno, HttpSession session) throws Exception {
 		boardService.increateViewcnt(bno, session);
+		BoardDTO dto=boardService.view(bno);
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("board/view");
-		mav.addObject("list", boardService.view(bno));
+		mav.addObject("list", dto);
 		mav.addObject("grade", boardgradeService.list(bno));
+		mav.addObject("company", companyService.view(dto.getCompany_name()));
 		return mav;
 	}
 	
@@ -149,7 +155,9 @@ public class BoardController {
 		System.out.println(dto);
 		DiffDate diff=new DiffDate();
 		long now_date=diff.diffOfDate(dto.getEnd_date(), dto.getStart_date());
-		String sysdate=new java.text.SimpleDateFormat("yyyyMMdd").format(new java.util.Date());
+		SimpleDateFormat format = new SimpleDateFormat ("yyyy-MM-dd");
+		Date time = new Date();
+		String sysdate = format.format(time);
 		long sledding=diff.diffOfDate(dto.getStart_date(), sysdate);
 		dto.setNow_date(now_date);
 		dto.setSledding(sledding);

@@ -9,6 +9,8 @@
 <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <link rel="stylesheet" href="http://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 <%@ include file="include/header.jsp" %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 <script type="text/javascript" src="http://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${path}/include/home_css.css">
 <script type="text/javascript">
@@ -44,7 +46,7 @@ $(document).ready(function(){
  --%>
 <div class="navbar">
 	 <div class="company-name">
-	 	<img src="./images/logo3.jpg" class="logo"><span>IF you</span>
+	 	<img src="${path}/images/logo3.jpg" class="logo"><span>IF you</span>
 		<div class="company-name invest"><a href="${path}/board/list.do">투자</a></div>
 		<div class="company-name reward"><a href="#">리워드</a></div>
 		<div class="menu">
@@ -180,6 +182,7 @@ $(document).ready(function(){
 		</div>
 	</div>
 </div>
+
 <%@include file="include/footer.jsp" %>
 <%-- <h1>조회수 Best 5</h1>
 <table border="1">

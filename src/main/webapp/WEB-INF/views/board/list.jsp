@@ -13,7 +13,7 @@ $(function(){
 	});
 });
 </script>
-<c:if test="${message != '' || message != null }">
+<c:if test="${message != '' && message != null }">
 				<script type="text/javascript">
 					alert("글 작성이 완료되었습니다. 승인 후 게시될 예정입니다.");
 				</script>
