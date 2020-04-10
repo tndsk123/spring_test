@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -59,9 +60,10 @@ public class UserController {
 	}
 	
 	@RequestMapping("logout.do")
-	public String logout(HttpSession session) {
+	public String logout(HttpSession session, Model model) {
 		session.invalidate();
-		return "board/login"; 
+		model.addAttribute("message", "logout");
+		return "redirect:/"; 
 	}
 	
 	@RequestMapping(value = "id_chk", method = RequestMethod.GET)
