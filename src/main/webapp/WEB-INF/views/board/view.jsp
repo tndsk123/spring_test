@@ -4,15 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+ <title>IFYOU &mdash; 누구나 쉽게하는 투자</title>
 <%@ include file="../include/header.jsp"%>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-<link rel="stylesheet" type="text/css" href="${path}/include/view_css.css">
 <script type="text/javascript">
-function buy(){
-	location.href="${path}/board/buy/${list.bno}"
-}
 function company(){
 	var company_name=$("#company_name").val();
 	$.ajax({
@@ -35,15 +30,71 @@ function company(){
      }
 	});
 }
+function end(){
+	alert("목표 금액 달성으로 투자가 불가한 상품입니다.");
+}
 </script>
 </head>
 <body>
-<%@include file="../include/header_bar.jsp" %>
-<c:choose>
-		<c:when test="${sessionScope.userid == 'tndsk123' }">
-			<%@ include file="../include/admin_menu.jsp"%>
-		</c:when>
-</c:choose>
+ <div class="site-wrap">
+  <%@ include file="../include/frame/top.jsp" %> 
+  	<div class="bg-light py-3">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 mb-0"><a href="${path}/">Home</a> <span class="mx-2 mb-0">/</span> <a href="${path}/board/list.do">투자</a> <span class="mx-2 mb-0">/</span> <strong class="text-black">${list.title}</strong></div>
+        </div>
+      </div>
+    </div>  
+
+    <div class="site-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="item-entry">
+              <a href="#" class="product-item md-height bg-gray d-block">
+                <img src="${path}/img/${list.title_img}" alt="Image" class="img-fluid">
+              </a>
+              
+            </div>
+
+          </div>
+          <div class="col-md-6">
+            <h2 class="text-black">${list.title}</h2>
+            <p><span><strong><fmt:formatNumber value="${list.now_fund}" groupingUsed="true"/>원 달성</strong>
+						목표금액 <fmt:formatNumber value="${list.max_fund}" groupingUsed="true"/> ${list.progress}%</span></p>
+            <p class="mb-4">${list.now_date}일 남음 ${list.end_date}마감</p>
+            <p><strong class="text-primary h4">1주 : <fmt:formatNumber value="${list.unit}" groupingUsed="true"/></strong></p>
+           
+            <div class="mb-5">
+              <c:choose>
+              	<c:when test="${list.limit == 1}">
+              		<p>모집상황에 따라 목표금액 이상 투자가 가능한 상품입니다.</p>
+              	</c:when>
+              	<c:otherwise>
+              		<p>목표금액 이상 투자가 불가능한 상품입니다.</p>
+              	</c:otherwise>
+              </c:choose>
+            </div>
+            <p>
+            	<c:choose>
+            		<c:when test="${list.progress >= 100 && list.limit != 1}">
+            			<button class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary" onclick="end()">구매종료</button>
+            		</c:when>
+            		<c:otherwise>         	
+            			<a href="${path}/board/buy/${list.bno}" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Buy Now</a>
+            		</c:otherwise>
+            	</c:choose>
+            	<a href="${path}/board/good.do?bno=${list.bno}" class="height-auto px-4 py-3 ml-3"><img src="${path}/images/good.jpg" width="50px" height="50px"></a>${list.good}
+            </p>
+           </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  
+<%--   
 		<div id="wrap">
 		<div class="article">
 			<div>
@@ -233,46 +284,8 @@ function company(){
        </div>
     </div>
   </div>
-</div>  
-
-<%-- <button type="button" onclick="buy()">구매하기</button>
-<h2>${list.title}</h2>
-<table border="1">
-	<tr>
-		<th>구분</th>
-		<th>이미지</th>
-		<th>주식구분</th>
-		<th>제목</th>
-		<th>현재금액</th>
-		<th>목표금액</th>
-		<th>진행률</th>
-		<th>시작일자</th>
-		<th>종료일자</th>
-		<th>남은일자</th>
-		<th>회사명</th>
-		<th>주당가격</th>
-		<th>최소투자액</th>
-		<th>서폿터수</th>
-		<th>조회수</th>
-	</tr>
-	<tr>
-		<td>${list.p_division}</td>
-		<td><img src="${path}/img/${list.title_img}"></td>
-		<td>${list.s_division}</td>
-		<td>${list.title}</td>
-		<td>${list.now_fund}</td>
-		<td>${list.max_fund}</td>
-		<td>${list.progress}%</td>
-		<td>${list.start_date}</td>
-		<td>${list.end_date}</td>
-		<td>${list.now_date}일</td>
-		<td>${list.company_name}</td>
-		<td>${list.unit}</td>
-		<td>${list.min_fund}</td>
-		<td>${list.support}</td>
-		<td>${list.viewcnt}</td>
-	</tr>
-</table>
-<a href="${path}/board/good.do?bno=${list.bno}"><img src="${path}/images/good.jpg"></a>${list.good} --%>
+</div> --%>
+<%@ include file="../include/frame/bottom.jsp" %>  
+</div>
 </body>
 </html>

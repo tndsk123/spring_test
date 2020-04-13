@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import com.example.test.model.board.dto.BoardDTO;
 
 public interface BoardService {
-	public List<BoardDTO> listAll() throws Exception;//목록	
+	public List<BoardDTO> listAll(int start, int end) throws Exception;//목록	
 	public void create(BoardDTO dto); //글쓰기 
 	public BoardDTO view(int bno) throws Exception;//세부 보기
 	public void increateViewcnt(int bno, HttpSession session) throws Exception;//조회수 증가 처리
@@ -21,4 +21,5 @@ public interface BoardService {
 	public List<BoardDTO> fund_approve();
 	public void approve(int bno);
 	public List<BoardDTO> searchList(String keyword);
+	public int countBoard();
 }

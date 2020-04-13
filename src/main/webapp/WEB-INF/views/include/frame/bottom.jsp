@@ -81,5 +81,12 @@
         </div>
       </div>
     </footer>
+    <script src="${path}/include/js/jquery-ui.js"></script>
+<script src="${path}/include/js/popper.min.js"></script>
+<script src="${path}/include/js/bootstrap.min.js"></script>
+<script src="${path}/include/js/owl.carousel.min.js"></script>
+<script src="${path}/include/js/jquery.magnific-popup.min.js"></script>
+<script src="${path}/include/js/aos.js"></script>
+<script src="${path}/include/js/main.js"></script>
 </body>
 </html>

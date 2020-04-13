@@ -47,6 +47,7 @@ public class UserController {
 		ModelAndView mav=new ModelAndView();
 		if(pwEncoder.matches(dto.getPasswd(), result)) {
 			mav.setViewName("redirect:/");
+			mav.addObject("message", "success");
 		}else {
 			mav.setViewName("board/login");
 			mav.addObject("message", "error");   

@@ -5,11 +5,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="board">
 	<select id="list" resultType="com.example.test.model.board.dto.BoardDTO">
-		select * from board where approve=1
+		select *
+			from (
+			    select rownum as rn, A.*
+			    from (
+			        select * from board 
+			        where approve=1
+			        order by bno desc 
+			    ) A    
+			) where rn between #{start} and #{end}
 	</select>
 	<select id="view" resultType="com.example.test.model.board.dto.BoardDTO">
 		select bno,p_division,s_division,title,max_fund,end_date,company_name,unit,min_fund,now_fund, support,title_img,
-		(end_date-start_date) now_date, start_date,progress,viewcnt,good from board where bno=#{bno} 
+		(end_date-start_date) now_date, start_date,progress,viewcnt,good, limit from board where bno=#{bno} 
 	</select>
 	<update id="buy">
 		update board set now_fund=now_fund+#{now_fund}, support=support+1, progress=((now_fund+#{now_fund})/max_fund*100)
@@ -69,6 +77,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		(end_date-start_date) now_date, start_date,progress,viewcnt,good, approve, title_img
 		from board order by progress desc) A 
 		where approve=1 and title like #{keyword}  or p_division like #{keyword} 
+	</select>
+	<select id="countBoard" resultType="int">
+		select count(*) from board
 	</select>
 	
 </mapper>

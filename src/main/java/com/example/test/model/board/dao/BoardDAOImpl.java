@@ -19,8 +19,11 @@ public class BoardDAOImpl implements BoardDAO {
 	SqlSession session;
 	
 	@Override
-	public List<BoardDTO> listAll() throws Exception {
-		return session.selectList("board.list");
+	public List<BoardDTO> listAll(int start, int end) throws Exception {
+		Map<String, Object> map=new HashMap<>();
+		map.put("start", start);
+		map.put("end",end);
+		return session.selectList("board.list",map);
 	}
 
 	@Override
@@ -87,6 +90,10 @@ public class BoardDAOImpl implements BoardDAO {
 	@Override
 	public List<BoardDTO> searchList(String keyword) {
 		return session.selectList("board.search", keyword);
+	}
+	@Override
+	public int countBoard() {
+		return session.selectOne("board.countBoard");
 	}
 
 }

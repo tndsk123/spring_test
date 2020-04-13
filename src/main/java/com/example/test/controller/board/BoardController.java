@@ -33,6 +33,7 @@ import com.example.test.service.grade.GradeService;
 import com.example.test.service.user.UserService;
 import com.example.test.service.user_fund.UserFundService;
 import com.example.test.util.DiffDate;
+import com.example.test.util.Pager;
 
 @Controller
 @RequestMapping("board/*")
@@ -54,11 +55,20 @@ public class BoardController {
 	String uploadPath;
 	
 	@RequestMapping("list.do")
-	public ModelAndView list() throws Exception{
-		List<BoardDTO> list=boardService.listAll();
+	public ModelAndView list(@RequestParam(defaultValue = "1") int curPage) throws Exception{
+		int count=boardService.countBoard();
+		System.out.println(count);
+		Pager pager=new Pager(count, curPage);
+		int start=pager.getPageBegin();
+		int end=pager.getPageEnd();
+		System.out.println(start);
+		System.out.println(end);
+		List<BoardDTO> list=boardService.listAll(start,end);
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("board/list");
 		mav.addObject("list", list);
+		mav.addObject("pager", pager);
+		mav.addObject("count", count);
 		return mav;
 	}
 	@RequestMapping("write.do")
@@ -108,7 +118,7 @@ public class BoardController {
 		dto2.setNow_fund(dto.getNow_fund());
 		boardgradeService.insert(dto2);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("home");
+		mav.setViewName("board/buy_success");
 		return mav;
 	}
 	

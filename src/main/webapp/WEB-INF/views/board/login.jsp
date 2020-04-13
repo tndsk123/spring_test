@@ -2,10 +2,11 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<%@ include file="../include/header.jsp"%>
+  <head>
+    <title>IFYOU &mdash; 누구나 쉽게하는 투자</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	  <%@ include file="../include/header.jsp"%>
 <script>
 $(function(){
 	$("#btnLogin").click(function(){
@@ -45,17 +46,12 @@ $(function(){
 </c:if>
 </head>
 <body>
-<c:choose>
-		<c:when test="${sessionScope.userid == 'tndsk123' }">
-			<%@ include file="../include/admin_menu.jsp"%>
-		</c:when>
-		<c:otherwise>
-			<%@ include file="../include/menu.jsp"%>
-		</c:otherwise>
-</c:choose>
+  <div class="site-wrap">
+  <%@ include file="../include/frame/top.jsp" %> 
+  
 <h2>로그인</h2>
 <form name="form1" method="post">
-<table border="1" width="400px">
+<table border="1">
 	<tr>
 		<td>아이디</td>
 		<td><input name="userid" id="userid" value="${userid}"></td>
@@ -85,6 +81,8 @@ $(function(){
 		</td>
 	</tr>
 </table>
-</form>
+</form> 
+</div>
+<%@ include file="../include/frame/bottom.jsp" %>
 </body>
 </html>

@@ -5,7 +5,7 @@ import java.util.List;
 import com.example.test.model.board.dto.BoardDTO;
 
 public interface BoardDAO {
-	public List<BoardDTO> listAll() throws Exception;//목록	
+	public List<BoardDTO> listAll(int start, int end) throws Exception;//목록	
 	public void create(BoardDTO dto); //글쓰기 
 	public BoardDTO view(int bno) throws Exception;//세부 보기
 	public void increateViewcnt(int bno) throws Exception;//조회수 증가 처리
@@ -19,4 +19,5 @@ public interface BoardDAO {
 	public List<BoardDTO> fund_approve();
 	public void approve(int bno);
 	public List<BoardDTO> searchList(String keyword);
+	public int countBoard();
 }

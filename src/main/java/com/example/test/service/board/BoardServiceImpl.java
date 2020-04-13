@@ -17,8 +17,8 @@ public class BoardServiceImpl implements BoardService {
 	BoardDAO boardDao;
 	
 	@Override
-	public List<BoardDTO> listAll() throws Exception {
-		return boardDao.listAll();
+	public List<BoardDTO> listAll(int start, int end) throws Exception {
+		return boardDao.listAll(start,end);
 	}
 
 	@Override
@@ -105,5 +105,9 @@ public class BoardServiceImpl implements BoardService {
 		return boardDao.searchList(keyword);
 	}
 	
+	@Override
+	public int countBoard() {
+		return boardDao.countBoard();
+	}
 
 }

@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <title>ShopMax &mdash; Colorlib e-Commerce Template</title>
+    <title>IFYOU &mdash; 누구나 쉽게하는 투자</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	  <%@ include file="include/header.jsp"%>
@@ -147,12 +147,5 @@
     </div>
     <%@ include file="include/frame/bottom.jsp" %>
   </div>
-		<script src="${path}/include/js/jquery-ui.js"></script>
-  	<script src="${path}/include/js/popper.min.js"></script>
-  	<script src="${path}/include/js/bootstrap.min.js"></script>
-  	<script src="${path}/include/js/owl.carousel.min.js"></script>
-  	<script src="${path}/include/js/jquery.magnific-popup.min.js"></script>
-  	<script src="${path}/include/js/aos.js"></script>
-  	<script src="${path}/include/js/main.js"></script>
 </body>
 </html>
