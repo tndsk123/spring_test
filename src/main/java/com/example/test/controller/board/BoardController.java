@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,7 @@ import com.example.test.model.user_fund.dto.UserFundDTO;
 import com.example.test.service.board.BoardGradeService;
 import com.example.test.service.board.BoardService;
 import com.example.test.service.company.CompanyService;
+import com.example.test.service.fund_board.FundBoardService;
 import com.example.test.service.grade.GradeService;
 import com.example.test.service.user.UserService;
 import com.example.test.service.user_fund.UserFundService;
@@ -51,24 +53,27 @@ public class BoardController {
 	BoardGradeService boardgradeService;
 	@Inject
 	CompanyService companyService;
+	@Inject
+	FundBoardService fundboardService;
 	@Resource(name="uploadPath")
 	String uploadPath;
 	
 	@RequestMapping("list.do")
-	public ModelAndView list(@RequestParam(defaultValue = "1") int curPage) throws Exception{
-		int count=boardService.countBoard();
+	public ModelAndView list(@RequestParam(defaultValue = "1") int curPage, @RequestParam(value="keyword", defaultValue = "null") String keyword) throws Exception{
+		int count=boardService.countBoard(keyword);
 		System.out.println(count);
 		Pager pager=new Pager(count, curPage);
 		int start=pager.getPageBegin();
 		int end=pager.getPageEnd();
-		System.out.println(start);
-		System.out.println(end);
-		List<BoardDTO> list=boardService.listAll(start,end);
+		List<BoardDTO> list=boardService.listAll(start,end,keyword);
+		List<BoardDTO> categories=boardService.categories();
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("board/list");
 		mav.addObject("list", list);
+		mav.addObject("categories", categories);
 		mav.addObject("pager", pager);
 		mav.addObject("count", count);
+		mav.addObject("keyword", keyword);
 		return mav;
 	}
 	@RequestMapping("write.do")
@@ -85,6 +90,8 @@ public class BoardController {
 		mav.addObject("list", dto);
 		mav.addObject("grade", boardgradeService.list(bno));
 		mav.addObject("company", companyService.view(dto.getCompany_name()));
+		mav.addObject("comment", fundboardService.list(bno));
+		mav.addObject("count", fundboardService.count(bno));
 		return mav;
 	}
 	
@@ -192,7 +199,26 @@ public class BoardController {
 		ModelAndView mav=new ModelAndView();
 		mav.addObject("keyword", keyword);
 		mav.addObject("list", boardService.searchList(keyword));
+		mav.addObject("search_count", boardService.search_count(keyword));
 		mav.setViewName("board/search_list");
+		return mav;
+	}
+	@RequestMapping("searchdetail.do")
+	public ModelAndView searchdetail(HttpServletRequest request) {
+		String division=request.getParameter("division");
+		String progress=request.getParameter("progress");
+		String max_fund=request.getParameter("max_fund");
+		String min_fund=request.getParameter("min_fund");
+		ModelAndView mav=new ModelAndView();
+		if(division != "a") {
+			mav.addObject("keyword", "세부 ");
+			mav.addObject("list", boardService.searchdetail(progress,max_fund,min_fund));
+			mav.addObject("search_count", boardService.searchdetail_count(progress,max_fund,min_fund));
+			mav.setViewName("board/search_list");
+		}else {
+			mav.addObject("keyword", "세부 ");
+			mav.setViewName("board/search_list");
+		}
 		return mav;
 	}
 }

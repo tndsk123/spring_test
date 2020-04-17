@@ -5,10 +5,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <mapper namespace="boardgrade">
 	<select id="list" resultType="com.example.test.model.board.dto.BoardGradeDTO">
-		select name,division,now_fund from board_grade where bno=#{bno}
+		select name,division,now_fund,buy_date from board_grade where bno=#{bno}
 	</select>	
 	
 	<insert id="insert">
 		insert into board_grade values(#{bno}, #{name}, #{division}, #{now_fund})
 	</insert>
+	
+	<select id="chart" resultType="com.example.test.model.board.dto.BoardGradeDTO">
+		select name,sum(now_fund) now_fund from board_grade where bno=#{bno} group by name
+	</select>
 </mapper>

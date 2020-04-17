@@ -6,8 +6,6 @@ import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
-
-import com.example.test.model.board.dto.BoardDTO;
 import com.example.test.model.board.dto.BoardGradeDTO;
 
 @Repository
@@ -22,8 +20,12 @@ public class BoardGradeDAOImpl implements BoardGradeDAO {
 	}
 
 	@Override
-	public List<BoardDTO> list(int bno) {
+	public List<BoardGradeDTO> list(int bno) {
 		return session.selectList("boardgrade.list", bno);
+	}
+	@Override
+	public List<BoardGradeDTO> chart(int bno) {
+		return session.selectList("boardgrade.chart", bno);
 	}
 
 }

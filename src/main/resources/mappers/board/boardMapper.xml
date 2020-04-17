@@ -11,7 +11,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			    from (
 			        select * from board 
 			        where approve=1
-			        order by bno desc 
+			        <if test="keyword != 'null'">
+			        	and s_division=#{keyword}
+			        </if>
+			        order by bno desc
 			    ) A    
 			) where rn between #{start} and #{end}
 	</select>
@@ -79,7 +82,144 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where approve=1 and title like #{keyword}  or p_division like #{keyword} 
 	</select>
 	<select id="countBoard" resultType="int">
-		select count(*) from board
+		select count(*) from board where approve=1  
+							<if test="keyword != 'null'">
+			        	and s_division=#{keyword}
+			        </if> 
 	</select>
-	
+	<select id="categories" resultType="com.example.test.model.board.dto.BoardDTO">
+		SELECT DISTINCT p_division FROM board where approve=1
+	</select>
+	<select id="search_count" resultType="int">
+		select count(*) from board where approve=1 and title like #{keyword}  or p_division like #{keyword}
+	</select>
+	<select id="searchdetail" resultType="com.example.test.model.board.dto.BoardDTO">
+		select A.* from (select bno,p_division,s_division,title,max_fund,end_date,company_name,unit,min_fund,now_fund, support,
+		(end_date-start_date) now_date, start_date,progress,viewcnt,good, approve, title_img
+		from board order by progress desc) A 
+		where approve=1
+		<if test="progress != null">
+			<choose>
+				<when test='progress == "a"'>
+					and progress between 0 and 25
+				</when>
+				<when test='progress == "b"'>
+					and progress between 25 and 50
+				</when>
+				<when test='progress == "c"'>
+					and progress between 50 and 75
+				</when>
+				<when test='progress == "d"'>
+					and progress between 75 and 100
+				</when>
+				<when test='progress == "e"'>
+					and progress &gt; 100
+				</when>
+			</choose>
+		</if>
+		<if test="max_fund != null">
+			<choose>
+				<when test='max_fund == "a"'>
+					and now_fund &lt; 1000000
+				</when>
+				<when test='max_fund == "b"'>
+					and now_fund between 1000000 and 5000000
+				</when>
+				<when test='max_fund == "c"'>
+					and now_fund between 5000000 and 10000000
+				</when>
+				<when test='max_fund == "d"'>
+					and now_fund between 10000000 and 50000000
+				</when>
+				<when test='max_fund == "e"'>
+					and now_fund &gt; 50000000
+				</when>
+			</choose>
+		</if>
+		<if test="min_fund != null">
+			<choose>
+				<when test='min_fund == "a"'>
+					and min_fund &lt; 100000
+				</when>
+				<when test='min_fund == "b"'>
+					and min_fund between 100000 and 500000
+				</when>
+				<when test='min_fund == "c"'>
+					and min_fund between 500000 and 1000000
+				</when>
+				<when test='min_fund == "d"'>
+					and min_fund between 1000000 and 5000000
+				</when>
+				<when test='min_fund == "e"'>
+					and min_fund between 5000000 and 10000000
+				</when>
+				<when test='min_fund == "f"'>
+					and min_fund &gt; 10000000
+				</when>
+			</choose>
+		</if> 		
+	</select>
+	<select id="searchdetail_count" resultType="int">
+		select count(*) from board where approve=1 
+		<if test="progress != null">
+			<choose>
+				<when test='progress == "a"'>
+					and progress between 0 and 25
+				</when>
+				<when test='progress == "b"'>
+					and progress between 25 and 50
+				</when>
+				<when test='progress == "c"'>
+					and progress between 50 and 75
+				</when>
+				<when test='progress == "d"'>
+					and progress between 75 and 100
+				</when>
+				<when test='progress == "e"'>
+					and progress &gt; 100
+				</when>
+			</choose>
+		</if>
+		<if test="max_fund != null">
+			<choose>
+				<when test='max_fund == "a"'>
+					and now_fund &lt; 1000000
+				</when>
+				<when test='max_fund == "b"'>
+					and now_fund between 1000000 and 5000000
+				</when>
+				<when test='max_fund == "c"'>
+					and now_fund between 5000000 and 10000000
+				</when>
+				<when test='max_fund == "d"'>
+					and now_fund between 10000000 and 50000000
+				</when>
+				<when test='max_fund == "e"'>
+					and now_fund &gt; 50000000
+				</when>
+			</choose>
+		</if>
+		<if test="min_fund != null">
+			<choose>
+				<when test='min_fund == "a"'>
+					and min_fund &lt; 100000
+				</when>
+				<when test='min_fund == "b"'>
+					and min_fund between 100000 and 500000
+				</when>
+				<when test='min_fund == "c"'>
+					and min_fund between 500000 and 1000000
+				</when>
+				<when test='min_fund == "d"'>
+					and min_fund between 1000000 and 5000000
+				</when>
+				<when test='min_fund == "e"'>
+					and min_fund between 5000000 and 10000000
+				</when>
+				<when test='min_fund == "f"'>
+					and min_fund &gt; 10000000
+				</when>
+			</choose>
+		</if>		
+	</select>
 </mapper>

@@ -19,10 +19,11 @@ public class BoardDAOImpl implements BoardDAO {
 	SqlSession session;
 	
 	@Override
-	public List<BoardDTO> listAll(int start, int end) throws Exception {
+	public List<BoardDTO> listAll(int start, int end, String keyword) throws Exception {
 		Map<String, Object> map=new HashMap<>();
 		map.put("start", start);
 		map.put("end",end);
+		map.put("keyword", keyword);
 		return session.selectList("board.list",map);
 	}
 
@@ -92,8 +93,38 @@ public class BoardDAOImpl implements BoardDAO {
 		return session.selectList("board.search", keyword);
 	}
 	@Override
-	public int countBoard() {
-		return session.selectOne("board.countBoard");
+	public int countBoard(String keyword) {
+		System.out.println("DAO에서의"+keyword);
+		Map<String, Object> map=new HashMap<>();
+		map.put("keyword", keyword);
+		return session.selectOne("board.countBoard", map);
 	}
-
+	@Override
+	public List<BoardDTO> categories() {
+		return session.selectList("board.categories");
+	}
+	@Override
+	public int search_count(String keyword) {
+		return session.selectOne("board.search_count", keyword);
+	}
+	@Override
+	public List<BoardDTO> searchdetail(String progress, String max_fund, String min_fund) {
+		Map<String, Object> map=new HashMap<>();
+		map.put("progress", progress);
+		map.put("max_fund", max_fund);
+		map.put("min_fund", min_fund);
+		System.out.println(map);
+		return session.selectList("board.searchdetail", map);
+	}
+	@Override
+	public int searchdetail_count(String progress, String max_fund, String min_fund) {
+		Map<String, Object> map=new HashMap<>();
+		System.out.println(progress);
+		System.out.println(max_fund);
+		System.out.println(min_fund);
+		map.put("progress", progress);
+		map.put("max_fund", max_fund);
+		map.put("min_fund", min_fund);		
+		return session.selectOne("board.searchdetail_count", map);
+	}
 }

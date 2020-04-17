@@ -17,8 +17,8 @@ public class BoardServiceImpl implements BoardService {
 	BoardDAO boardDao;
 	
 	@Override
-	public List<BoardDTO> listAll(int start, int end) throws Exception {
-		return boardDao.listAll(start,end);
+	public List<BoardDTO> listAll(int start, int end, String keyword) throws Exception {
+		return boardDao.listAll(start,end,keyword);
 	}
 
 	@Override
@@ -106,8 +106,25 @@ public class BoardServiceImpl implements BoardService {
 	}
 	
 	@Override
-	public int countBoard() {
-		return boardDao.countBoard();
+	public int countBoard(String keyword) {
+		System.out.println("서비스에서의"+keyword);
+		return boardDao.countBoard(keyword);
 	}
-
+	@Override
+	public List<BoardDTO> categories() {
+		return boardDao.categories();
+	}
+	@Override
+	public int search_count(String keyword) {
+		keyword="%"+keyword+"%";
+		return boardDao.search_count(keyword);
+	}
+	@Override
+	public List<BoardDTO> searchdetail(String progress, String max_fund, String min_fund) {
+		return boardDao.searchdetail(progress, max_fund, min_fund);
+	}
+	@Override
+	public int searchdetail_count(String progress, String max_fund, String min_fund) {
+		return boardDao.searchdetail_count(progress, max_fund, min_fund);
+	}
 }

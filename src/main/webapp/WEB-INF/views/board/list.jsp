@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
  <title>IFYOU &mdash; 누구나 쉽게하는 투자</title>
 <%@ include file="../include/header.jsp"%>
+<link rel="stylesheet" href="${path}/include/css/search.css">
 <script>
 $(function(){
 	$("#btnWrite").click(function(){
@@ -14,7 +15,12 @@ $(function(){
 	});
 });
 function list(page){
-	location.href="${path}/board/list.do?curPage="+page
+		var keyword=$("#s_keyword").val();
+		if(keyword==null){
+		location.href="${path}/board/list.do?curPage="+page;
+		}else{
+			location.href="${path}/board/list.do?curPage="+page+"&keyword="+keyword;
+		}
 }
 </script>
 <c:if test="${message != '' && message != null }">
@@ -50,8 +56,125 @@ function list(page){
         </div>
       </div>
     </div>
+		
+		<div class="s007">
+      <form action="${path}/board/searchdetail.do">
+        <div class="inner-form">
+          <div class="basic-search">
+            <div class="input-field">
+              <div class="icon-wrap">
+                <!-- 돋보기 아이콘 -->
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20">
+                  <path d="M18.869 19.162l-5.943-6.484c1.339-1.401 2.075-3.233 2.075-5.178 0-2.003-0.78-3.887-2.197-5.303s-3.3-2.197-5.303-2.197-3.887 0.78-5.303 2.197-2.197 3.3-2.197 5.303 0.78 3.887 2.197 5.303 3.3 2.197 5.303 2.197c1.726 0 3.362-0.579 4.688-1.645l5.943 6.483c0.099 0.108 0.233 0.162 0.369 0.162 0.121 0 0.242-0.043 0.338-0.131 0.204-0.187 0.217-0.503 0.031-0.706zM1 7.5c0-3.584 2.916-6.5 6.5-6.5s6.5 2.916 6.5 6.5-2.916 6.5-6.5 6.5-6.5-2.916-6.5-6.5z"></path>
+                </svg>
+              </div>
+              <input id="search" type="text" value="${keyword}"/>
+              <div class="result-count">
+                <span>${search_count}</span>results</div>
+            </div>
+          </div>
+          <div class="advance-search">
+            <span class="desc">Advanced Search</span>
+            <div class="row">
+              <div class="input-field">
+                <div class="input-select">
+                  <select data-trigger="" name="division">
+                    <option placeholder="" value="">프로젝트</option>
+                    <option value="a">투자</option>
+                    <option value="b">펀딩</option>
+                  </select>
+                </div>
+              </div>
+              <div class="input-field">
+                <div class="input-select">
+                  <select data-trigger="" name="progress">
+                    <option placeholder="" value="">달성률</option>
+                    <option value="a">0~25</option>
+                    <option value="b">25~50</option>
+                    <option value="c">50~75</option>
+                    <option value="d">75~100</option>
+                    <option value="d">100이상</option>
+                  </select>
+                </div>
+              </div>
+              <div class="input-field">
+                <div class="input-select">
+                  <select data-trigger="" name="max_fund">
+                    <option placeholder="" value="">달성금액</option>
+                    <option value="a">100만 원 미만</option>
+                    <option value="b">100만 원 ~ 500만 원</option>
+                    <option value="c">500만 원 ~ 1,000만 원</option>
+                    <option value="d">1,000만 원 ~ 5,000만 원</option>
+                    <option value="e">5,000만 원 이상</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row second">
+              <div class="input-field">
+                <div class="input-select">
+                  <select data-trigger="" name="min_fund">
+                    <option placeholder="" value="">최소투자액</option>
+                    <option value="a">10만 원 미만</option>
+                    <option value="b">10만 원 ~ 50만 원</option>
+                    <option value="c">50만 원 ~ 100만 원</option>
+                    <option value="d">100만 원 ~ 500만 원</option>
+                    <option value="e">500만 원 ~ 1,000만 원</option>
+                    <option value="f">1,000만 원 이상</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="row third">
+              <div class="input-field">
+                <button class="btn-search">Search</button>
+                <button class="btn-delete" id="delete">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <script src="${path}/include/js/choices.js"></script>
+    <script>
+      const customSelects = document.querySelectorAll("select");
+      const deleteBtn = document.getElementById('delete')
+      const choices = new Choices('select',
+      {
+        searchEnabled: false,
+        removeItemButton: true,
+        itemSelectText: '',
+      });
+      for (let i = 0; i < customSelects.length; i++)
+      {
+        customSelects[i].addEventListener('addItem', function(event)
+        {
+          if (event.detail.value)
+          {
+            let parent = this.parentNode.parentNode
+            parent.classList.add('valid')
+            parent.classList.remove('invalid')
+          }
+          else
+          {
+            let parent = this.parentNode.parentNode
+            parent.classList.add('invalid')
+            parent.classList.remove('valid')
+          }
+        }, false);
+      }
+      deleteBtn.addEventListener("click", function(e)
+      {
+        e.preventDefault()
+        const deleteAll = document.querySelectorAll('.choices__button')
+        for (let i = 0; i < deleteAll.length; i++)
+        {
+          deleteAll[i].click();
+        }
+      });
 
-
+    </script>
+		
     <div class="site-section">
       <div class="container">
 
@@ -61,27 +184,44 @@ function list(page){
               <div class="col-md-12 mb-5">
                 <div class="float-md-left"><h2 class="text-black h5">Shop All</h2></div>
                 <div class="d-flex">
-                  <div class="dropdown mr-1 ml-md-auto">
+                  <div class="dropdown mr-1 ml-md-auto" id="stock">
                     <button type="button" class="btn btn-white btn-sm dropdown-toggle px-4" id="dropdownMenuOffset" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Latest
+                      	<span class="caret" id="s_division_search">
+                      		<c:choose>
+                      			<c:when test="${param.keyword == null}">
+                      				주식구분
+                      			</c:when>
+                      			<c:otherwise>
+                      				${param.keyword}
+                      				<input type="hidden" id="s_keyword" value="${keyword}">
+                      			</c:otherwise>
+                      		</c:choose>
+                      	</span>
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuOffset">
-                      <a class="dropdown-item" href="#">Men</a>
-                      <a class="dropdown-item" href="#">Women</a>
-                      <a class="dropdown-item" href="#">Children</a>
-                    </div>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="javascript:void(0)">주식</a></li>
+                      <li><a class="dropdown-item" href="javascript:void(0)">채권</a></li>
+                    </ul>
                   </div>
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-white btn-sm dropdown-toggle px-4" id="dropdownMenuReference" data-toggle="dropdown">Reference</button>
+                  <script type="text/javascript">
+                  $('#stock .dropdown-menu li > a').bind('click',function (e) {
+                	    var html = $(this).html();
+                	    location.href="${path}/board/list.do?keyword="+html;
+                	});
+                  </script>
+                  <!-- <div class="btn-group" id="d_stock">
+                    <button type="button" class="btn btn-white btn-sm dropdown-toggle px-4" id="dropdownMenuReference" data-toggle="dropdown">
+                      	<span class="caret" id="sd_division_search">주식구분</span>	
+                    </button>
+                    
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
                       <a class="dropdown-item" href="#">Relevance</a>
                       <a class="dropdown-item" href="#">Name, A to Z</a>
                       <a class="dropdown-item" href="#">Name, Z to A</a>
-                      <div class="dropdown-divider"></div>
                       <a class="dropdown-item" href="#">Price, low to high</a>
                       <a class="dropdown-item" href="#">Price, high to low</a>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -92,6 +232,7 @@ function list(page){
                   <img src="${path}/img/${row.title_img}" alt="Image" class="img-fluid">
                 </a>
                 <h2 class="item-title"><a href="${path}/board/view/${row.bno}">${row.title}</a></h2>
+                <p class="">${row.s_division}</p>
                 <strong class="item-price">${row.now_fund}</strong>
               </div>
             </c:forEach>
@@ -130,9 +271,9 @@ function list(page){
             <div class="border p-4 rounded mb-4">
               <h3 class="mb-3 h6 text-uppercase text-black d-block">Categories</h3>
               <ul class="list-unstyled mb-0">
-                <li class="mb-1"><a href="#" class="d-flex"><span>Men</span> <span class="text-black ml-auto">(2,220)</span></a></li>
-                <li class="mb-1"><a href="#" class="d-flex"><span>Women</span> <span class="text-black ml-auto">(2,550)</span></a></li>
-                <li class="mb-1"><a href="#" class="d-flex"><span>Children</span> <span class="text-black ml-auto">(2,124)</span></a></li>
+              	<c:forEach var="var" items="${categories}">
+              		<li class="mb-1"><a href="#" class="d-flex"><span>${var.p_division}</span></a></li>	
+              	</c:forEach>
               </ul>
             </div>
 

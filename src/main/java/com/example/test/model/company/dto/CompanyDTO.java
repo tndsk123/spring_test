@@ -14,7 +14,14 @@ public class CompanyDTO {
 	private Date open_date;
 	private String logo;
 	private String company_num;
+	private int c_value;
 	
+	public int getC_value() {
+		return c_value;
+	}
+	public void setC_value(int c_value) {
+		this.c_value = c_value;
+	}
 	public String getCompany_num() {
 		return company_num;
 	}
@@ -79,7 +86,8 @@ public class CompanyDTO {
 	public String toString() {
 		return "CompanyDTO [cno=" + cno + ", company_name=" + company_name + ", ceo=" + ceo + ", count_member="
 				+ count_member + ", found_date=" + found_date + ", writer=" + writer + ", greeting=" + greeting
-				+ ", open_date=" + open_date + ", logo=" + logo + ", company_num=" + company_num + "]";
+				+ ", open_date=" + open_date + ", logo=" + logo + ", company_num=" + company_num + ", c_value="
+				+ c_value + "]";
 	}
 	
 	

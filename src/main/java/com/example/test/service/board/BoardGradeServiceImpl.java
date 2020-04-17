@@ -7,7 +7,6 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.example.test.model.board.dao.BoardGradeDAO;
-import com.example.test.model.board.dto.BoardDTO;
 import com.example.test.model.board.dto.BoardGradeDTO;
 
 @Service
@@ -22,8 +21,12 @@ public class BoardGradeServiceImpl implements BoardGradeService {
 	}
 
 	@Override
-	public List<BoardDTO> list(int bno) {
+	public List<BoardGradeDTO> list(int bno) {
 		return dao.list(bno);
+	}
+	@Override
+	public List<BoardGradeDTO> chart(int bno) {
+		return dao.chart(bno);
 	}
 
 }

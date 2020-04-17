@@ -20,6 +20,7 @@ function okay(item, item_count, item_sum, min_fund, max_fund, account, limit, ap
 	var unit=eval(min_fund.value) / eval(item.value);
 	var unit2=(eval(max_fund.value) - eval(progress.value)) / eval(item.value);
 	var grade=$("#grade").val();
+	var approve=approve.value;
 	if(eval(item_count.value) * eval(item.value) < eval(min_fund.value)){
 		alert("최소 구매 구좌는"+unit+"입니다.");
 		return;

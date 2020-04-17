@@ -7,6 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
  <title>IFYOU &mdash; 누구나 쉽게하는 투자</title>
 <%@ include file="../include/header.jsp"%>
+<link rel="stylesheet" href="${path}/include/css/view_css.css">
 <script type="text/javascript">
 function company(){
 	var company_name=$("#company_name").val();
@@ -91,6 +92,167 @@ function end(){
           </div>
         </div>
       </div>
+      <div class="site-section block-3 site-blocks-2">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-8 site-section-heading text-center pt-4">
+           	<div style="font-size: 13px; margin-bottom: 30px;">
+    			<strong>! 투자 위험 고지</strong> 비성장기업 투자는 원금 손실의 가능성이 크니 <a href="#">투자 위험 안내</a>를 꼭 확인하세요.
+           	</div>  
+           </div>
+       </div> 
+    </div>
+    <input id="bno" type="hidden" value="${list.bno}">
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script>
+	//구글 차트 라이브러리 로딩
+	google.load("visualization","1", {
+		"packages":["corechart"]
+	});
+	//라이브러리 로딩이 완료되면 drawChart 함수 호출, ()는 안씀
+	google.setOnLoadCallback(drawChart);
+	function drawChart(){
+		var bno=$("#bno").val();
+		//차트 그리기에 필요한 json 데이터 로딩
+		var jsonData=$.ajax({
+			url: "${path}/chart/cart_money_list.do?bno="+bno,
+			dataType: "json",
+			async: false //동기식처리(순차적 처리:데이터를 다부른 후 챠트출력하기 위해)
+		}).responseText;
+		console.log(jsonData);//콘솔에도 출력해봄
+		//json => 데이터테이블
+		var data=new google.visualization.DataTable(jsonData);
+		console.log("데이터 테이블:"+data);
+ 		var chart=new google.visualization.PieChart(
+				document.getElementById("chart_div")); 
+		chart.draw(data, {
+			title: "등급별 구매",
+			//curveType: "function", //곡선 처리		
+			width: 500,
+			height: 220,
+			pieHole: 0.4
+		});
+		var chart2=new google.visualization.PieChart(
+				document.getElementById("chart_div2")); 
+		chart2.draw(data, {
+			//curveType: "function", //곡선 처리		
+			width: 800,
+			height: 550,
+			pieHole: 0.5,
+			pieSliceTextStyle: {
+	            color: 'black',
+	          },
+	          legend: 'none'
+		});
+	}
+</script>
+	<div class="container pt-3">
+		<div class="row">
+			<div class="col-sm-6" id="chart_div"></div>
+		</div>
+	</div>        	        	
+
+
+     
+       
+       
+	<div class="container pt-3">
+		<p style="color: rgba(0,0,0,.87); font-size: 19px; font-weight: 700; margin-top: 30px;">증권 발행 조건</p>
+	<div>
+	<div class="row" style="margin-bottom: 50px;">
+			<div class="col-sm-6" style="color: #90949c; font-size: 13px; font-weight: 400;" >기업가치</div>
+			<div class="col-sm-6" style="color: #90949c; font-size: 13px; font-weight: 400;">종류</div>
+			<div class="col-sm-6" style="color: #00b2b2; font-size: 28px; font-weight: 700;">약 ${company.c_value}억</div>
+			<div class="col-sm-6" style="color: #1d2129; font-size: 17px; font-weight: 700;">${list.s_division}</div>
+	</div>
+	<div class="row" style="margin-bottom: 50px;">
+		<div class="col-sm-2" style="color: #1d2129;">주당 가격</div>
+		<div class="col-sm-2"><fmt:formatNumber value="${list.unit}" groupingUsed="true"/>원</div>
+		<div class="col-sm-2" style="color: #1d2129;">투자 가능 금액</div>
+		<div class="col-sm-2">최소 
+			<fmt:formatNumber value="${list.min_fund}" groupingUsed="true"/>원
+			(<fmt:formatNumber value="${list.min_fund / list.unit}" groupingUsed="true"/>주)
+		</div>
+	</div>
+    </div>
+    </div>
+
+<section id="tabs">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 ">
+				<nav>
+					<div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+						<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">프로젝트소개</a>
+						<a class="nav-item nav-link" id="nav-company-tab" data-toggle="tab" href="#nav-company" role="tab" aria-controls="nav-company" aria-selected="false">기업소개</a>
+						<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">투자위험</a>
+						<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">게시판</a>
+						<a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab" aria-controls="nav-about" aria-selected="false">투자자</a>
+					</div>
+				</nav>
+				<div class="tab-content py-3 px-3 px-sm-3" id="nav-tabContent">
+					<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+					
+					</div>
+					<div class="tab-pane fade" id="nav-company" role="tabpanel" aria-labelledby="nav-company-tab">
+					
+					</div>
+					<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+						
+					</div>
+					<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+						<div>
+							<div>
+								게시판에서 교환되는 의견은 참고자료일 뿐, 이곳에서 논의되는 내용 자체가 손실보전이나 원금보장을 담보하지 않습니다. 투자설명서가 피드백 내용보다 우선하므로, 반드시 핵심정보와 투자설명서를 바탕으로 투자 의사결정을 내리시기 바랍니다. 와디즈에서 발행되는 모든 증권에는 원금손실의 위험이 있음에 유의하시기 바랍니다.
+							</div>
+							<div>
+							 <c:choose>
+								<c:when test="${comment == null || comment == ''}">
+									<div>
+										<strong style="color: blue">아직 등록된 의견이 없습니다.</strong>
+										<button class="btn btn-primary">의견남기기</button>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div>
+										의견 <strong style="color: blue">${count}</strong>
+										<button class="btn btn-primary">의견남기기</button>
+									</div>
+									<div>
+										<c:forEach var="var" items="${comment}">
+											<span>${var.title}</span>
+											<span><fmt:formatDate value="${var.write_date}" pattern="yyyy-MM-dd"/></span>
+											<br>
+											<span>${var.writer}</span>
+											<i class="fa fa-thumbs-up"><a href="#"></a></i>${var.good}
+											<i class="fa fa-thumbs-down"><a href="#"></a></i>${var.hate}<hr>
+										</c:forEach>
+									</div>
+								</c:otherwise>
+							 </c:choose>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
+						<div>
+							<div>투자자</div>
+							<div id="chart_div2"></div>
+							<div>
+								<span>${list.support}명의 투자자가 있습니다.</span><br>
+								<c:forEach var="var" items="${grade}" varStatus="i">
+									${var.name} 등급님이 <fmt:formatNumber value="${var.now_fund}" groupingUsed="true"/>
+									원을 투자하셨습니다.(<fmt:formatDate value="${var.buy_date}" pattern="yyyy-MM-dd"/>)<hr>
+								</c:forEach>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+			</div>
+		</div>
+	</div>
+</section> 	    
+    
     </div>
   
   
